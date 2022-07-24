@@ -1,7 +1,7 @@
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ContactPersistence.Models;
 using ContactPersistence.BusinessLogic;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using UtilityLibrary.Interfaces;
 
 namespace ContactMSTest.PersistenceTests;
 
@@ -16,7 +16,15 @@ public class BusinessDepartmentTest
             Name = "Finance",
             Description = "The Finance Department is responsible for acquiring and utilizing money for financing the activities of the tourism business."
         };
-        BLBusinessDepartment.AddBusinessDepartment(businessDepartment);
+        IResponseInformation responseInformation = BLBusinessDepartment.AddBusinessDepartment(businessDepartment);
+        if(responseInformation.Failure)
+        {
+            Assert.Fail(responseInformation.Message);
+        }
+        else
+        {
+            
+        }
     }
 
     [TestMethod]

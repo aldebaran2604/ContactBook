@@ -13,7 +13,7 @@ public static class BLBusinessDepartment
         try
         {
             using ContactBookContext context = new ContactBookContext();
-            BusinessDepartment[] businessDepartments = context.BusinessDepartments?.ToArray() ?? Array.Empty<BusinessDepartment>();
+            BusinessDepartment[] businessDepartments = context.BusinessDepartments.ToArray() ?? Array.Empty<BusinessDepartment>();
             responseInformation.ConfigureSuccessResponseInformation("Se realizo la consulta con exito.", businessDepartments);
         }
         catch(Exception ex)

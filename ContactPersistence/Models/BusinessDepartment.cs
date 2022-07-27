@@ -1,6 +1,9 @@
 
+using Microsoft.EntityFrameworkCore;
+
 namespace ContactPersistence.Models;
 
+[Index(nameof(Name), IsUnique = true)]
 public class BusinessDepartment
 {
     public int BusinessDepartmentId { get; set; }

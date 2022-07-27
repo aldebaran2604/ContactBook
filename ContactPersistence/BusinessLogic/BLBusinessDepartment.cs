@@ -32,7 +32,7 @@ public static class BLBusinessDepartment
 
             using ContactBookContext context = new ContactBookContext();
 
-            context.Add(businessDepartment);
+            context.BusinessDepartments.Add(businessDepartment);
             context.SaveChanges();
             responseInformation.ConfigureSuccessResponseInformation($"Se guardo con éxito el departamento.");
         }
@@ -52,7 +52,7 @@ public static class BLBusinessDepartment
 
             using ContactBookContext context = new ContactBookContext();
 
-            BusinessDepartment? businessDepartmentQuery = context.BusinessDepartments?.FirstOrDefault(bd => bd.BusinessDepartmentId == businessDepartment.BusinessDepartmentId);
+            BusinessDepartment? businessDepartmentQuery = context.BusinessDepartments.FirstOrDefault(bd => bd.BusinessDepartmentId == businessDepartment.BusinessDepartmentId);
 
             if(businessDepartmentQuery is not null)
             {
@@ -83,10 +83,10 @@ public static class BLBusinessDepartment
 
             using ContactBookContext context = new ContactBookContext();
 
-            BusinessDepartment? businessDepartmentDelete = context.BusinessDepartments?.FirstOrDefault(b => b.BusinessDepartmentId == businessDepartment.BusinessDepartmentId);
+            BusinessDepartment? businessDepartmentDelete = context.BusinessDepartments.FirstOrDefault(b => b.BusinessDepartmentId == businessDepartment.BusinessDepartmentId);
             if(businessDepartmentDelete is not null)
             {
-                context.BusinessDepartments?.Remove(businessDepartmentDelete);
+                context.BusinessDepartments.Remove(businessDepartmentDelete);
                 context.SaveChanges();
                 responseInformation.ConfigureSuccessResponseInformation("Se elimino el deprtamento con éxito.");
             }

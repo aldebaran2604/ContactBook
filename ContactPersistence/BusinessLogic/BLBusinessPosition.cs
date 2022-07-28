@@ -87,11 +87,11 @@ public static class BLBusinessPosition
             {
                 context.BusinessPositions.Remove(businessPositionDelete);
                 context.SaveChanges();
-                responseInformation.ConfigureSuccessResponseInformation("Se elimino la posicón con éxito.");
+                responseInformation.ConfigureSuccessResponseInformation("Se elimino la posición con éxito.");
             }
             else
             {
-                responseInformation.ConfigureFailureResponseInformation("No se encontro la posicón.");
+                responseInformation.ConfigureFailureResponseInformation("No se encontro la posición.");
             }
         }
         catch(Exception ex)

@@ -13,7 +13,7 @@ public static class BLBusinessPosition
         {
             using ContactBookContext context = new ContactBookContext();
             BusinessPosition[] businessPositions = context.BusinessPositions.ToArray() ?? Array.Empty<BusinessPosition>();
-            responseInformation.ConfigureSuccessResponseInformation("Se realizo la consulta con exito.", businessPositions);
+            responseInformation.ConfigureSuccessResponseInformation("Se realizo la consulta con éxito.", businessPositions);
         }
         catch(Exception ex)
         {
@@ -63,7 +63,7 @@ public static class BLBusinessPosition
             }
             else
             {
-                responseInformation.ConfigureFailureResponseInformation("No se encontro la posición.");
+                responseInformation.ConfigureFailureResponseInformation("No se encontró la posición.");
             }
         }
         catch(Exception ex)
@@ -91,7 +91,7 @@ public static class BLBusinessPosition
             }
             else
             {
-                responseInformation.ConfigureFailureResponseInformation("No se encontro la posición.");
+                responseInformation.ConfigureFailureResponseInformation("No se encontró la posición.");
             }
         }
         catch(Exception ex)

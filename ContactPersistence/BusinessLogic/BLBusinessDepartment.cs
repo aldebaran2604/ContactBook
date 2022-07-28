@@ -14,7 +14,7 @@ public static class BLBusinessDepartment
         {
             using ContactBookContext context = new ContactBookContext();
             BusinessDepartment[] businessDepartments = context.BusinessDepartments.ToArray() ?? Array.Empty<BusinessDepartment>();
-            responseInformation.ConfigureSuccessResponseInformation("Se realizo la consulta con exito.", businessDepartments);
+            responseInformation.ConfigureSuccessResponseInformation("Se realizo la consulta con éxito.", businessDepartments);
         }
         catch(Exception ex)
         {
@@ -60,11 +60,11 @@ public static class BLBusinessDepartment
                 businessDepartmentQuery.Description = businessDepartment.Description;
 
                 context.SaveChanges();
-                responseInformation.ConfigureSuccessResponseInformation("Se guardo con éxito el departamento.", businessDepartmentQuery);
+                responseInformation.ConfigureSuccessResponseInformation("Se actualizo con éxito el departamento.", businessDepartmentQuery);
             }
             else
             {
-                responseInformation.ConfigureFailureResponseInformation("No se encontro el departamento.");
+                responseInformation.ConfigureFailureResponseInformation("No se encontró el departamento.");
             }
         }
         catch(Exception ex)
@@ -88,11 +88,11 @@ public static class BLBusinessDepartment
             {
                 context.BusinessDepartments.Remove(businessDepartmentDelete);
                 context.SaveChanges();
-                responseInformation.ConfigureSuccessResponseInformation("Se elimino el deprtamento con éxito.");
+                responseInformation.ConfigureSuccessResponseInformation("Se elimino el departamento con éxito.");
             }
             else
             {
-                responseInformation.ConfigureFailureResponseInformation("No se encontro el departamento.");
+                responseInformation.ConfigureFailureResponseInformation("No se encontró el departamento.");
             }
         }
         catch(Exception ex)

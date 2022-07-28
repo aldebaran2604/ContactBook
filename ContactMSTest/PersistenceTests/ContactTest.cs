@@ -1,6 +1,8 @@
 using System.Linq;
 using ContactPersistence.BusinessLogic;
 using ContactPersistence.Models;
+using dotNetTips.Utility.Standard.Tester;
+using dotNetTips.Utility.Standard.Tester.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UtilityLibrary.Interfaces;
 
@@ -32,11 +34,21 @@ public class ContactTest
     [TestMethod]
     public void AddContactTest()
     {
+        Person person = RandomData.GeneratePerson<Person>();
+        
         Contact contact = new Contact()
         {
-            Names = "Luis Jose",
-            LastNames = "Padilla Benitez",
-            Pseudonymous = "Aldebaran"
+            Names = person.FirstName,
+            LastNames = person.LastName,
+            Pseudonymous = RandomData.GenerateWord(250),
+            Email = person.Email,
+            PhoneNumber = person.CellPhone,
+            Country = person.Country,
+            StreetDirection1 = person.Address1,
+            StreetDirection2 = person.Address2,
+            PostalCode = person.PostalCode,
+            City = person.City,
+            Birthday = person.BornOn.DateTime
         };
         IResponseInformation responseInformation = BLContact.AddContact(contact);
         Assert.IsTrue(responseInformation.Success, responseInformation.Message);

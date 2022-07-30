@@ -11,11 +11,13 @@ namespace ContactMSTest.PersistenceTests;
 [TestClass]
 public class ContactTest
 {
+    private Contact contact = new Contact();
+
     //TODO: Implement transactions
     [ClassInitialize()]
     public static void ClassInit(TestContext context)
     {
-        
+
     }
     
     [ClassCleanup()]
@@ -24,68 +26,99 @@ public class ContactTest
         
     }
 
+    [TestInitialize]
+    public void MethodInit()
+    {
+        Person person = RandomData.GeneratePerson<Person>();
+        contact.Names = person.FirstName;
+        contact.LastNames = person.LastName;
+        contact. Pseudonymous = RandomData.GenerateWord(50);
+        contact.Email = person.Email;
+        contact.PhoneNumber = person.CellPhone;
+        contact.Country = person.Country;
+        contact.StreetDirection1 = person.Address1;
+        contact.StreetDirection2 = person.Address2;
+        contact.PostalCode = person.PostalCode;
+        contact.City = person.City;
+        contact.Birthday = person.BornOn.DateTime;
+    }
+
     [TestMethod]
     public void ListaContactsTest()
     {
+        //Get contact list
         IResponseInformation<Contact[]> responseInformation = BLContact.ListContacts();
+
+        //Validate the response information
         Assert.IsTrue(responseInformation.Success, responseInformation.Message);
     }
 
     [TestMethod]
     public void AddContactTest()
     {
-        Person person = RandomData.GeneratePerson<Person>();
-        
-        Contact contact = new Contact()
-        {
-            Names = person.FirstName,
-            LastNames = person.LastName,
-            Pseudonymous = RandomData.GenerateWord(250),
-            Email = person.Email,
-            PhoneNumber = person.CellPhone,
-            Country = person.Country,
-            StreetDirection1 = person.Address1,
-            StreetDirection2 = person.Address2,
-            PostalCode = person.PostalCode,
-            City = person.City,
-            Birthday = person.BornOn.DateTime
-        };
+        //Save 
         IResponseInformation responseInformation = BLContact.AddContact(contact);
+
+        //Validate the response information
         Assert.IsTrue(responseInformation.Success, responseInformation.Message);
     }
 
     [TestMethod]
-    public void AddContactTestWithExistingBusinessDepartment()
+    public void AddContactTestWithLastBusinessDepartmentOrPosition()
     {
-        IResponseInformation<BusinessDepartment[]> responseInformation1 = BLBusinessDepartment.ListBusinessDepartment();
-        BusinessDepartment? businessDepartment =  responseInformation1.ResultItem?.LastOrDefault();
-        Contact contact = new Contact()
-        {
-            Names = "Luis Jose",
-            LastNames = "Padilla Benitez",
-            Pseudonymous = "Aldebaran",
-            BusinessDepartmentId = businessDepartment?.BusinessDepartmentId
-        };
+        IResponseInformation<BusinessDepartment[]> listBusinessDepartment = BLBusinessDepartment.ListBusinessDepartment();
+        BusinessDepartment? businessDepartment =  listBusinessDepartment.ResultItem?.LastOrDefault();
+        
+        IResponseInformation<BusinessPosition[]> listBusinessPosition = BLBusinessPosition.ListBusinessPosition();
+        BusinessPosition? businessPosition = listBusinessPosition.ResultItem?.LastOrDefault();
+
+        //Add Business Department id to contact
+        contact.BusinessDepartmentId = businessDepartment?.BusinessDepartmentId;
+
+        //Add Business Position id to contact
+        contact.BusinessPositionID = businessPosition?.BusinessPositionId;
+        
         IResponseInformation responseInformation = BLContact.AddContact(contact);
+
+        //Validate the response information
         Assert.IsTrue(responseInformation.Success, responseInformation.Message);
     }
 
     [TestMethod]
-    public void AddContactTestWithNewBusinessDepartment()
+    public void AddContactTestWithNewBusinessDepartmentAndPosition()
     {
         BusinessDepartment businessDepartment = new BusinessDepartment()
         {
-            Name = "Purchase Department",
-            Description = "By following a standard procedure of procurement, this department ensures the enterprise has appropriate and timely supply of all the required goods and services."
+            Name = RandomData.GenerateWord(120),
+            Description = RandomData.GenerateWord(250)
         };
-        Contact contact = new Contact()
+
+        BusinessPosition businessPosition = new BusinessPosition()
         {
-            Names = "Luis Jose",
-            LastNames = "Padilla Benitez",
-            Pseudonymous = "Aldebaran",
-            BusinessDepartment = businessDepartment
+            Name = RandomData.GenerateWord(120),
+            Description = RandomData.GenerateWord(250)
         };
+        
+        //Add new Business Department and related to contact
+        contact.BusinessDepartment = businessDepartment;
+
+        //Add new Business Position and related to contact
+        contact.BusinessPosition = businessPosition;
+        
         IResponseInformation responseInformation = BLContact.AddContact(contact);
+
+        //Validate the response information
         Assert.IsTrue(responseInformation.Success, responseInformation.Message);
+    }
+    
+    [TestMethod]
+    public void DeleteContactTest()
+    {
+        IResponseInformation<Contact[]> responseInformation = BLContact.ListContacts();
+        Contact contactDelete = responseInformation.ResultItem?.FirstOrDefault() ?? new Contact();
+        IResponseInformation responseInformationDelete = BLContact.DeleteContact(contactDelete);
+        
+        //Validate the response information
+        Assert.IsTrue(responseInformationDelete.Success, responseInformationDelete.Message);
     }
 }

@@ -1,8 +1,9 @@
-using System;
+using System.Linq;
 using ContactPersistence.BusinessLogic;
 using ContactPersistence.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UtilityLibrary.Interfaces;
+using dotNetTips.Utility.Standard.Tester;
 
 namespace ContactMSTest.PersistenceTests;
 
@@ -25,43 +26,61 @@ public class BusinessPositionTest
     [TestMethod]
     public void ListBusinessPositionTest()
     {
+        //Get list of Business Position
         IResponseInformation<BusinessPosition[]> responseInformation = BLBusinessPosition.ListBusinessPosition();
+        
+        //Validate the response information
         Assert.IsTrue(responseInformation.Success, responseInformation.Message);
     }
 
     [TestMethod]
     public void AddBusinessPositionTest()
     {
+        //Create the new position with random data
         BusinessPosition businessPosition = new BusinessPosition()
         {
-            Name = "Executive",
-            Description = "The executive level often features a central executive in charge of an entire organization or large department within an organization."
+            Name = RandomData.GenerateWord(150),
+            Description = RandomData.GenerateWord(250)
         };
+
+        //Saved the new position
         IResponseInformation responseInformation = BLBusinessPosition.AddBusinessPosition(businessPosition);
+        
+        //Validate the response information
         Assert.IsTrue(responseInformation.Success, responseInformation.Message);
     }
     
     [TestMethod]
     public void EditBusinessPositionTest()
     {
-        BusinessPosition businessPosition = new BusinessPosition()
-        {
-            BusinessPositionId = 1,
-            Name = "Manager",
-            Description = "Managers and supervisors make up many of the essential mid-level business roles within an organization."
-        };
+        //Get list of Business Position
+        IResponseInformation<BusinessPosition[]> responseInformationList = BLBusinessPosition.ListBusinessPosition();
+
+        //Search the last position to edit
+        BusinessPosition businessPosition = responseInformationList.ResultItem?.LastOrDefault() ?? new BusinessPosition();
+        businessPosition.Name = RandomData.GenerateWord(150);
+        businessPosition.Description = RandomData.GenerateWord(250);
+
+        //Passed the position with the new data to save
         IResponseInformation<BusinessPosition> responseInformation = BLBusinessPosition.EditBusinessPosition(businessPosition);
+        
+        //Validate the response information
         Assert.IsTrue(responseInformation.Success, responseInformation.Message);
     }
 
     [TestMethod]
     public void DeleteBusinessPositionTest()
     {
-        BusinessPosition businessPosition = new BusinessPosition()
-        {
-            BusinessPositionId = 1
-        };
+        //Get list of Business Position
+        IResponseInformation<BusinessPosition[]> responseInformationList = BLBusinessPosition.ListBusinessPosition();
+
+        //Search the last position to delete
+        BusinessPosition businessPosition = responseInformationList.ResultItem?.LastOrDefault() ?? new BusinessPosition();
+
+        //Deleted the position
         IResponseInformation responseInformation = BLBusinessPosition.DeleteBusinessPosition(businessPosition);
+        
+        //Validate the response information
         Assert.IsTrue(responseInformation.Success, responseInformation.Message);
     }
 }

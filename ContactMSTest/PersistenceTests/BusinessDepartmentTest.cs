@@ -1,7 +1,9 @@
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ContactPersistence.Models;
 using ContactPersistence.BusinessLogic;
 using UtilityLibrary.Interfaces;
+using dotNetTips.Utility.Standard.Tester;
 
 namespace ContactMSTest.PersistenceTests;
 
@@ -24,43 +26,61 @@ public class BusinessDepartmentTest
     [TestMethod]
     public void ListBusinessDepartmentTest()
     {
+        //Get list of Business Department
         IResponseInformation<BusinessDepartment[]> responseInformation = BLBusinessDepartment.ListBusinessDepartment();
+        
+        //Validate the response information
         Assert.IsTrue(responseInformation.Success, responseInformation.Message);
     }
 
     [TestMethod]
     public void AddBusinessDepartmentTest()
     {
+        //Create the new department with random data
         BusinessDepartment businessDepartment = new BusinessDepartment()
         {
-            Name = "Finance",
-            Description = "The Finance Department is responsible for acquiring and utilizing money for financing the activities of the tourism business."
+            Name = RandomData.GenerateWord(150),
+            Description = RandomData.GenerateWord(250)
         };
+
+        //Saved the new department
         IResponseInformation responseInformation = BLBusinessDepartment.AddBusinessDepartment(businessDepartment);
+        
+        //Validate the response information
         Assert.IsTrue(responseInformation.Success, responseInformation.Message);
     }
 
     [TestMethod]
     public void EditBusinessDepartmentTest()
     {
-        BusinessDepartment businessDepartment = new BusinessDepartment()
-        {
-            BusinessDepartmentId = 1,
-            Name = "Human Resource",
-            Description = "This department is responsible for recruiting skilled, and experienced manpower according to the positions at vacancies of different departments."
-        };
+        //Get list of Business Department
+        IResponseInformation<BusinessDepartment[]> responseInformationList = BLBusinessDepartment.ListBusinessDepartment();
+        
+        //Search the last department to edit
+        BusinessDepartment businessDepartment = responseInformationList.ResultItem?.LastOrDefault()?? new BusinessDepartment();
+        businessDepartment.Name = RandomData.GenerateWord(150);
+        businessDepartment.Description = RandomData.GenerateWord(250);
+
+        //Passed the department with the new data to save
         IResponseInformation<BusinessDepartment> responseInformation = BLBusinessDepartment.EditBusinessDepartment(businessDepartment);
+        
+        //Validate the response information
         Assert.IsTrue(responseInformation.Success, responseInformation.Message);
     }
 
     [TestMethod]
     public void DeleteBusinessDepartmentTest()
     {
-        BusinessDepartment businessDepartment = new BusinessDepartment()
-        {
-            BusinessDepartmentId = 1
-        };
+        //Get list of Business Department
+        IResponseInformation<BusinessDepartment[]> responseInformationList = BLBusinessDepartment.ListBusinessDepartment();
+        
+        //Search the last department to delete
+        BusinessDepartment businessDepartment = responseInformationList.ResultItem?.LastOrDefault()?? new BusinessDepartment();
+        
+        //Deleted the department
         IResponseInformation responseInformation = BLBusinessDepartment.DeleteBusinessDepartment(businessDepartment);
+        
+        //Validate the response information
         Assert.IsTrue(responseInformation.Success, responseInformation.Message);
     }
 }

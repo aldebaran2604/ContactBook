@@ -16,7 +16,7 @@ public static class BLBusinessDepartment
             BusinessDepartment[] businessDepartments = context.BusinessDepartments.ToArray() ?? Array.Empty<BusinessDepartment>();
             responseInformation.ConfigureSuccessResponseInformation("Se realizo la consulta con éxito.", businessDepartments);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             responseInformation.ConfigureFailureResponseInformation(ex.Message);
         }
@@ -28,7 +28,7 @@ public static class BLBusinessDepartment
         IResponseInformation responseInformation = new ResponseInformation();
         try
         {
-            if(businessDepartment is null) throw new ArgumentNullException(nameof(businessDepartment));
+            if (businessDepartment is null) throw new ArgumentNullException(nameof(businessDepartment));
 
             using ContactBookContext context = new ContactBookContext();
 
@@ -36,7 +36,7 @@ public static class BLBusinessDepartment
             context.SaveChanges();
             responseInformation.ConfigureSuccessResponseInformation($"Se guardo con éxito el departamento.");
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             responseInformation.ConfigureFailureResponseInformation(ex.Message);
         }
@@ -48,13 +48,13 @@ public static class BLBusinessDepartment
         IResponseInformation<BusinessDepartment> responseInformation = new ResponseInformation<BusinessDepartment>();
         try
         {
-            if(businessDepartment is null) throw new ArgumentNullException(nameof(businessDepartment));
+            if (businessDepartment is null) throw new ArgumentNullException(nameof(businessDepartment));
 
             using ContactBookContext context = new ContactBookContext();
 
             BusinessDepartment? businessDepartmentQuery = context.BusinessDepartments.FirstOrDefault(bd => bd.BusinessDepartmentId == businessDepartment.BusinessDepartmentId);
 
-            if(businessDepartmentQuery is not null)
+            if (businessDepartmentQuery is not null)
             {
                 businessDepartmentQuery.Name = businessDepartment.Name;
                 businessDepartmentQuery.Description = businessDepartment.Description;
@@ -67,7 +67,7 @@ public static class BLBusinessDepartment
                 responseInformation.ConfigureFailureResponseInformation("No se encontró el departamento.");
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             responseInformation.ConfigureFailureResponseInformation(ex.Message);
         }
@@ -79,12 +79,12 @@ public static class BLBusinessDepartment
         IResponseInformation responseInformation = new ResponseInformation();
         try
         {
-            if(businessDepartment is null) throw new ArgumentNullException(nameof(businessDepartment));
+            if (businessDepartment is null) throw new ArgumentNullException(nameof(businessDepartment));
 
             using ContactBookContext context = new ContactBookContext();
 
             BusinessDepartment? businessDepartmentDelete = context.BusinessDepartments.FirstOrDefault(b => b.BusinessDepartmentId == businessDepartment.BusinessDepartmentId);
-            if(businessDepartmentDelete is not null)
+            if (businessDepartmentDelete is not null)
             {
                 context.BusinessDepartments.Remove(businessDepartmentDelete);
                 context.SaveChanges();
@@ -95,7 +95,7 @@ public static class BLBusinessDepartment
                 responseInformation.ConfigureFailureResponseInformation("No se encontró el departamento.");
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             responseInformation.ConfigureFailureResponseInformation(ex.Message);
         }

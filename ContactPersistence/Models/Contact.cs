@@ -1,4 +1,3 @@
-
 namespace ContactPersistence.Models;
 
 public class Contact

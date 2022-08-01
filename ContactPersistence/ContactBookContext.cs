@@ -11,16 +11,28 @@ internal class ContactBookContext : DbContext
 {
     #region Properties
 
+    /// <summary>
+    /// Path where the database is located
+    /// </summary>
     private string DbPath { get; }
     
     #endregion
 
     #region Properties DbSet
     
+    /// <summary>
+    /// Data set related to the BusinessPosition model
+    /// </summary>
     public DbSet<BusinessPosition> BusinessPositions { get; set; }
 
+    /// <summary>
+    /// Data set related to the BusinessDepartment model
+    /// </summary>
     public DbSet<BusinessDepartment> BusinessDepartments { get; set; }
 
+    /// <summary>
+    /// Data set related to the Contact model
+    /// </summary>
     public DbSet<Contact> Contacts { get; set; }
    
     #endregion
@@ -29,6 +41,9 @@ internal class ContactBookContext : DbContext
 
     #pragma warning disable CS8618
 
+    /// <summary>
+    /// Default constructor
+    /// </summary>
     public ContactBookContext()
     {
         var folder = Environment.SpecialFolder.LocalApplicationData;
@@ -42,6 +57,10 @@ internal class ContactBookContext : DbContext
 
     #region Methods
 
+    /// <summary>
+    /// Context configuration
+    /// </summary>
+    /// <param name="optionsBuilder"></param>
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlite($"Data Source={DbPath}");

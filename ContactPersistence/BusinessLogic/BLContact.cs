@@ -4,6 +4,7 @@ using UtilityLibrary.Helpers;
 using UtilityLibrary.Interfaces;
 
 namespace ContactPersistence.BusinessLogic;
+
 public static class BLContact
 {
     public static IResponseInformation<Contact[]> ListContacts()
@@ -12,10 +13,10 @@ public static class BLContact
         try
         {
             using ContactBookContext context = new ContactBookContext();
-            Contact[] contacts =  context.Contacts.ToArray() ?? Array.Empty<Contact>();
+            Contact[] contacts = context.Contacts.ToArray() ?? Array.Empty<Contact>();
             responseInformation.ConfigureSuccessResponseInformation("Se realizo la consulta con éxito.", contacts);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             responseInformation.ConfigureFailureResponseInformation(ex.Message);
         }
@@ -27,13 +28,13 @@ public static class BLContact
         IResponseInformation responseInformation = new ResponseInformation();
         try
         {
-            if(contact is null) throw new ArgumentNullException(nameof(contact));
-            
+            if (contact is null) throw new ArgumentNullException(nameof(contact));
+
             using ContactBookContext context = new ContactBookContext();
             context.Contacts.Add(contact);
             context.SaveChanges();
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             responseInformation.ConfigureFailureResponseInformation(ex.Message);
         }
@@ -45,11 +46,11 @@ public static class BLContact
         IResponseInformation<Contact> responseInformation = new ResponseInformation<Contact>();
         try
         {
-            if(contact is null) throw new ArgumentNullException(nameof(contact));
+            if (contact is null) throw new ArgumentNullException(nameof(contact));
 
             using ContactBookContext context = new ContactBookContext();
             Contact? contactQuery = context.Contacts.FirstOrDefault(c => c.ContactId == contact.ContactId);
-            if(contactQuery is not null)
+            if (contactQuery is not null)
             {
                 contactQuery.Names = contact.Names;
                 contactQuery.LastNames = contact.LastNames;
@@ -80,7 +81,7 @@ public static class BLContact
                 responseInformation.ConfigureFailureResponseInformation("No se encontró el contacto.");
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             responseInformation.ConfigureFailureResponseInformation(ex.Message);
         }
@@ -92,12 +93,12 @@ public static class BLContact
         IResponseInformation responseInformation = new ResponseInformation();
         try
         {
-            if(contact is null) throw new ArgumentNullException(nameof(contact));
+            if (contact is null) throw new ArgumentNullException(nameof(contact));
 
             using ContactBookContext context = new ContactBookContext();
 
             Contact? contactQuery = context.Contacts.FirstOrDefault(c => c.ContactId == contact.ContactId);
-            if(contactQuery is not null)
+            if (contactQuery is not null)
             {
                 context.Contacts.Remove(contactQuery);
                 context.SaveChanges();
@@ -108,7 +109,7 @@ public static class BLContact
                 responseInformation.ConfigureFailureResponseInformation("No se encontró el contacto.");
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             responseInformation.ConfigureFailureResponseInformation(ex.Message);
         }

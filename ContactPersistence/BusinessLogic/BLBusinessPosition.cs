@@ -4,6 +4,7 @@ using UtilityLibrary;
 using ContactPersistence.Models;
 
 namespace ContactPersistence.BusinessLogic;
+
 public static class BLBusinessPosition
 {
     public static IResponseInformation<BusinessPosition[]> ListBusinessPosition()
@@ -15,7 +16,7 @@ public static class BLBusinessPosition
             BusinessPosition[] businessPositions = context.BusinessPositions.ToArray() ?? Array.Empty<BusinessPosition>();
             responseInformation.ConfigureSuccessResponseInformation("Se realizo la consulta con éxito.", businessPositions);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             responseInformation.ConfigureFailureResponseInformation(ex.Message);
         }
@@ -27,7 +28,7 @@ public static class BLBusinessPosition
         IResponseInformation responseInformation = new ResponseInformation();
         try
         {
-            if(businessPosition is null) throw new ArgumentNullException(nameof(businessPosition));
+            if (businessPosition is null) throw new ArgumentNullException(nameof(businessPosition));
 
             using ContactBookContext context = new ContactBookContext();
 
@@ -35,7 +36,7 @@ public static class BLBusinessPosition
             context.SaveChanges();
             responseInformation.ConfigureSuccessResponseInformation($"Se guardo con éxito la posición.");
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             responseInformation.ConfigureFailureResponseInformation(ex.Message);
         }
@@ -47,13 +48,13 @@ public static class BLBusinessPosition
         IResponseInformation<BusinessPosition> responseInformation = new ResponseInformation<BusinessPosition>();
         try
         {
-            if(businessPosition is null) throw new ArgumentNullException(nameof(businessPosition));
+            if (businessPosition is null) throw new ArgumentNullException(nameof(businessPosition));
 
             using ContactBookContext context = new ContactBookContext();
 
             BusinessPosition? businessPositionQuery = context.BusinessPositions.FirstOrDefault(bd => bd.BusinessPositionId == businessPosition.BusinessPositionId);
 
-            if(businessPositionQuery is not null)
+            if (businessPositionQuery is not null)
             {
                 businessPositionQuery.Name = businessPosition.Name;
                 businessPositionQuery.Description = businessPosition.Description;
@@ -66,7 +67,7 @@ public static class BLBusinessPosition
                 responseInformation.ConfigureFailureResponseInformation("No se encontró la posición.");
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             responseInformation.ConfigureFailureResponseInformation(ex.Message);
         }
@@ -78,12 +79,12 @@ public static class BLBusinessPosition
         IResponseInformation responseInformation = new ResponseInformation();
         try
         {
-            if(businessPosition is null) throw new ArgumentNullException(nameof(businessPosition));
+            if (businessPosition is null) throw new ArgumentNullException(nameof(businessPosition));
 
             using ContactBookContext context = new ContactBookContext();
 
             BusinessPosition? businessPositionDelete = context.BusinessPositions.FirstOrDefault(b => b.BusinessPositionId == businessPosition.BusinessPositionId);
-            if(businessPositionDelete is not null)
+            if (businessPositionDelete is not null)
             {
                 context.BusinessPositions.Remove(businessPositionDelete);
                 context.SaveChanges();
@@ -94,7 +95,7 @@ public static class BLBusinessPosition
                 responseInformation.ConfigureFailureResponseInformation("No se encontró la posición.");
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             responseInformation.ConfigureFailureResponseInformation(ex.Message);
         }

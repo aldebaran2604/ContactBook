@@ -5,8 +5,15 @@ using ContactPersistence.Models;
 
 namespace ContactPersistence.BusinessLogic;
 
+/// <summary>
+/// Static class that exposes methods to query, add, edit, and delete positions
+/// </summary>
 public static class BLBusinessPosition
 {
+    /// <summary>
+    /// Get list of positions
+    /// </summary>
+    /// <returns>Error information and positions</returns>
     public static IResponseInformation<BusinessPosition[]> ListBusinessPosition()
     {
         IResponseInformation<BusinessPosition[]> responseInformation = new ResponseInformation<BusinessPosition[]>();
@@ -23,6 +30,11 @@ public static class BLBusinessPosition
         return responseInformation;
     }
 
+    /// <summary>
+    /// Add new position
+    /// </summary>
+    /// <param name="businessPosition">Data new position</param>
+    /// <returns>Error information</returns>
     public static IResponseInformation AddBusinessPosition(BusinessPosition businessPosition)
     {
         IResponseInformation responseInformation = new ResponseInformation();
@@ -43,6 +55,11 @@ public static class BLBusinessPosition
         return responseInformation;
     }
 
+    /// <summary>
+    /// Edit an existing position
+    /// </summary>
+    /// <param name="businessPosition">Data update position</param>
+    /// <returns>Error information and position data</returns>
     public static IResponseInformation<BusinessPosition> EditBusinessPosition(BusinessPosition businessPosition)
     {
         IResponseInformation<BusinessPosition> responseInformation = new ResponseInformation<BusinessPosition>();
@@ -73,6 +90,12 @@ public static class BLBusinessPosition
         }
         return responseInformation;
     }
+
+    /// <summary>
+    /// Delete existing position
+    /// </summary>
+    /// <param name="businessPosition">Data position</param>
+    /// <returns>Error information</returns>
 
     public static IResponseInformation DeleteBusinessPosition(BusinessPosition businessPosition)
     {

@@ -5,8 +5,15 @@ using ContactPersistence.Models;
 
 namespace ContactPersistence.BusinessLogic;
 
+/// <summary>
+/// Static class that exposes methods to query, add, edit, and delete departments
+/// </summary>
 public static class BLBusinessDepartment
 {
+    /// <summary>
+    /// Get list of departments
+    /// </summary>
+    /// <returns>Error information and departments</returns>
     public static IResponseInformation<BusinessDepartment[]> ListBusinessDepartment()
     {
         IResponseInformation<BusinessDepartment[]> responseInformation = new ResponseInformation<BusinessDepartment[]>();
@@ -23,6 +30,11 @@ public static class BLBusinessDepartment
         return responseInformation;
     }
 
+    /// <summary>
+    /// Add new department
+    /// </summary>
+    /// <param name="businessDepartment">Data new department</param>
+    /// <returns>Error information</returns>
     public static IResponseInformation AddBusinessDepartment(BusinessDepartment businessDepartment)
     {
         IResponseInformation responseInformation = new ResponseInformation();
@@ -43,6 +55,11 @@ public static class BLBusinessDepartment
         return responseInformation;
     }
 
+    /// <summary>
+    /// Edit an existing department
+    /// </summary>
+    /// <param name="businessDepartment">Data update department</param>
+    /// <returns>Error information and department data</returns>
     public static IResponseInformation<BusinessDepartment> EditBusinessDepartment(BusinessDepartment businessDepartment)
     {
         IResponseInformation<BusinessDepartment> responseInformation = new ResponseInformation<BusinessDepartment>();
@@ -74,6 +91,11 @@ public static class BLBusinessDepartment
         return responseInformation;
     }
 
+    /// <summary>
+    /// Delete existing department
+    /// </summary>
+    /// <param name="businessDepartment">Data department</param>
+    /// <returns>Error information</returns>
     public static IResponseInformation DeleteBusinessDepartment(BusinessDepartment businessDepartment)
     {
         IResponseInformation responseInformation = new ResponseInformation();

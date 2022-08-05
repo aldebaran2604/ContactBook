@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "ContactServiceGRPC";
+
+package contactbook;
+
+service BusinessDepartment {
+    rpc ListBusinessDepartment(ListBusinessDepartmentRequest) returns (ListBusinessDepartmentResponse);
+}
+
+message ResponseInformation {
+    bool Success = 1;
+    string Message = 2;
+    bool Failure = 3;
+}
+
+message BusinessDepartmentModel {
+    int32 BusinessDepartmentId = 1;
+    string Name = 2;
+    string Description = 3;
+    repeated ContactModel Contacts = 4;
+}
+
+message BusinessPositionModel {
+    int32 BusinessPositionId = 1;
+    string Name = 2;
+    string Description = 3;
+    repeated ContactModel Contacts = 4;
+}
+
+message ContactModel {
+    int32 ContactId = 1;
+    string Names = 2;
+    string LastNames = 3;
+    string Pseudonymous = 4;
+    string CompanyName = 5;
+    google.protobuf.Int32Value BusinessPositionID = 6;
+    optional BusinessPositionModel BusinessPosition = 7;
+    google.protobuf.Int32Value BusinessDepartmentId = 8;
+    optional BusinessDepartmentModel BusinessDepartment = 9;
+    string Email = 10;
+    string PhoneNumber = 11;
+    string Country = 12;
+    string StreetDirection1 = 13;
+    string StreetDirection2 = 14;
+    string PostalCode = 15;
+    string City = 16;
+    string State = 17;
+    optional google.protobuf.Timestamp Birthday = 18;
+    string WebSite = 19;
+    string Relationship = 20;
+    string TypeRelationship = 21;
+    string Notes = 22;
+}
+
+message ListBusinessDepartmentRequest {
+
+}
+
+message ListBusinessDepartmentResponse {
+    ResponseInformation ResponseInformation = 1;
+    repeated BusinessDepartmentModel BusinessDepartments = 2;
+}
+

@@ -21,11 +21,11 @@ public static class BLContact
         {
             using ContactBookContext context = new ContactBookContext();
             Contact[] contacts = context.Contacts.ToArray() ?? Array.Empty<Contact>();
-            responseInformation.ConfigureSuccessResponseInformation("Se realizo la consulta con éxito.", contacts);
+            responseInformation.ConfigureSuccess("Se realizo la consulta con éxito.", contacts);
         }
         catch (Exception ex)
         {
-            responseInformation.ConfigureFailureResponseInformation(ex.Message);
+            responseInformation.ConfigureFailure(ex.Message);
         }
         return responseInformation;
     }
@@ -48,7 +48,7 @@ public static class BLContact
         }
         catch (Exception ex)
         {
-            responseInformation.ConfigureFailureResponseInformation(ex.Message);
+            responseInformation.ConfigureFailure(ex.Message);
         }
         return responseInformation;
     }
@@ -91,16 +91,16 @@ public static class BLContact
                 contactQuery.Notes = contact.Notes;
 
                 context.SaveChanges();
-                responseInformation.ConfigureSuccessResponseInformation("Se actualizo con éxito el contacto.", contactQuery);
+                responseInformation.ConfigureSuccess("Se actualizo con éxito el contacto.", contactQuery);
             }
             else
             {
-                responseInformation.ConfigureFailureResponseInformation("No se encontró el contacto.");
+                responseInformation.ConfigureFailure("No se encontró el contacto.");
             }
         }
         catch (Exception ex)
         {
-            responseInformation.ConfigureFailureResponseInformation(ex.Message);
+            responseInformation.ConfigureFailure(ex.Message);
         }
         return responseInformation;
     }
@@ -124,16 +124,16 @@ public static class BLContact
             {
                 context.Contacts.Remove(contactQuery);
                 context.SaveChanges();
-                responseInformation.ConfigureSuccessResponseInformation("Se elimino el contacto con éxito.");
+                responseInformation.ConfigureSuccess("Se elimino el contacto con éxito.");
             }
             else
             {
-                responseInformation.ConfigureFailureResponseInformation("No se encontró el contacto.");
+                responseInformation.ConfigureFailure("No se encontró el contacto.");
             }
         }
         catch (Exception ex)
         {
-            responseInformation.ConfigureFailureResponseInformation(ex.Message);
+            responseInformation.ConfigureFailure(ex.Message);
         }
         return responseInformation;
     }

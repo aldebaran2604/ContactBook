@@ -2,29 +2,40 @@ using UtilityLibrary.Interfaces;
 
 namespace UtilityLibrary.Helpers;
 
+/// <summary>
+/// Helper to configure the ResponseInformation
+/// </summary>
 public static class ResponseInformationHelper
 {
-    public static void ConfigureSuccessResponseInformation(this IResponseInformation responseInformation, string? message)
+    public static void ConfigureSuccess(this IResponseInformation? responseInformation, string? message)
     {
+        if(responseInformation is null) return;
+
         responseInformation.Success = true;
         responseInformation.Message = message;
     }
 
-    public static void ConfigureSuccessResponseInformation<T>(this IResponseInformation<T> responseInformation, string? message, T resultItem)
+    public static void ConfigureSuccess<T>(this IResponseInformation<T>? responseInformation, string? message, T? resultItem)
     {
-        responseInformation.ConfigureSuccessResponseInformation(message);
+        if(responseInformation is null) return;
+
+        responseInformation.ConfigureSuccess(message);
         responseInformation.ResultItem = resultItem;
     }
 
-    public static void ConfigureFailureResponseInformation(this IResponseInformation responseInformation, string? message)
+    public static void ConfigureFailure(this IResponseInformation? responseInformation, string message)
     {
+        if(responseInformation is null) return;
+
         responseInformation.Success = false;
         responseInformation.Message = message;
     }
 
-    public static void ConfigureFailureResponseInformation<T>(this IResponseInformation<T> responseInformation, string? message, T? resultItem)
+    public static void ConfigureFailure<T>(this IResponseInformation<T>? responseInformation, string message, T resultItem)
     {
-        responseInformation.ConfigureFailureResponseInformation(message);
+        if(responseInformation is null) return;
+        
+        responseInformation.ConfigureFailure(message);
         responseInformation.ResultItem = resultItem;
     }
 }

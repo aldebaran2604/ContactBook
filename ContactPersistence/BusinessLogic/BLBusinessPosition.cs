@@ -21,11 +21,11 @@ public static class BLBusinessPosition
         {
             using ContactBookContext context = new ContactBookContext();
             BusinessPosition[] businessPositions = context.BusinessPositions.ToArray() ?? Array.Empty<BusinessPosition>();
-            responseInformation.ConfigureSuccessResponseInformation("Se realizo la consulta con éxito.", businessPositions);
+            responseInformation.ConfigureSuccess("Se realizo la consulta con éxito.", businessPositions);
         }
         catch (Exception ex)
         {
-            responseInformation.ConfigureFailureResponseInformation(ex.Message);
+            responseInformation.ConfigureFailure(ex.Message);
         }
         return responseInformation;
     }
@@ -46,11 +46,11 @@ public static class BLBusinessPosition
 
             context.BusinessPositions.Add(businessPosition);
             context.SaveChanges();
-            responseInformation.ConfigureSuccessResponseInformation($"Se guardo con éxito la posición.");
+            responseInformation.ConfigureSuccess($"Se guardo con éxito la posición.");
         }
         catch (Exception ex)
         {
-            responseInformation.ConfigureFailureResponseInformation(ex.Message);
+            responseInformation.ConfigureFailure(ex.Message);
         }
         return responseInformation;
     }
@@ -77,16 +77,16 @@ public static class BLBusinessPosition
                 businessPositionQuery.Description = businessPosition.Description;
 
                 context.SaveChanges();
-                responseInformation.ConfigureSuccessResponseInformation("Se guardo con éxito la posición.", businessPositionQuery);
+                responseInformation.ConfigureSuccess("Se guardo con éxito la posición.", businessPositionQuery);
             }
             else
             {
-                responseInformation.ConfigureFailureResponseInformation("No se encontró la posición.");
+                responseInformation.ConfigureFailure("No se encontró la posición.");
             }
         }
         catch (Exception ex)
         {
-            responseInformation.ConfigureFailureResponseInformation(ex.Message);
+            responseInformation.ConfigureFailure(ex.Message);
         }
         return responseInformation;
     }
@@ -111,16 +111,16 @@ public static class BLBusinessPosition
             {
                 context.BusinessPositions.Remove(businessPositionDelete);
                 context.SaveChanges();
-                responseInformation.ConfigureSuccessResponseInformation("Se elimino la posición con éxito.");
+                responseInformation.ConfigureSuccess("Se elimino la posición con éxito.");
             }
             else
             {
-                responseInformation.ConfigureFailureResponseInformation("No se encontró la posición.");
+                responseInformation.ConfigureFailure("No se encontró la posición.");
             }
         }
         catch (Exception ex)
         {
-            responseInformation.ConfigureFailureResponseInformation(ex.Message);
+            responseInformation.ConfigureFailure(ex.Message);
         }
         return responseInformation;
     }

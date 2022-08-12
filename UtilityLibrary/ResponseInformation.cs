@@ -24,7 +24,7 @@ public class ResponseInformation : IResponseInformation
         Success = true;
     }
 
-    public ResponseInformation(bool success, string message)
+    public ResponseInformation(bool success, string? message)
     {
         Success = success;
         Message = message;

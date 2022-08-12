@@ -21,11 +21,11 @@ public static class BLBusinessDepartment
         {
             using ContactBookContext context = new ContactBookContext();
             BusinessDepartment[] businessDepartments = context.BusinessDepartments.ToArray() ?? Array.Empty<BusinessDepartment>();
-            responseInformation.ConfigureSuccessResponseInformation("Se realizo la consulta con éxito.", businessDepartments);
+            responseInformation.ConfigureSuccess("Se realizo la consulta con éxito.", businessDepartments);
         }
         catch (Exception ex)
         {
-            responseInformation.ConfigureFailureResponseInformation(ex.Message);
+            responseInformation.ConfigureFailure(ex.Message);
         }
         return responseInformation;
     }
@@ -46,11 +46,11 @@ public static class BLBusinessDepartment
 
             context.BusinessDepartments.Add(businessDepartment);
             context.SaveChanges();
-            responseInformation.ConfigureSuccessResponseInformation($"Se guardo con éxito el departamento.");
+            responseInformation.ConfigureSuccess($"Se guardo con éxito el departamento.");
         }
         catch (Exception ex)
         {
-            responseInformation.ConfigureFailureResponseInformation(ex.Message);
+            responseInformation.ConfigureFailure(ex.Message);
         }
         return responseInformation;
     }
@@ -77,16 +77,16 @@ public static class BLBusinessDepartment
                 businessDepartmentQuery.Description = businessDepartment.Description;
 
                 context.SaveChanges();
-                responseInformation.ConfigureSuccessResponseInformation("Se actualizo con éxito el departamento.", businessDepartmentQuery);
+                responseInformation.ConfigureSuccess("Se actualizo con éxito el departamento.", businessDepartmentQuery);
             }
             else
             {
-                responseInformation.ConfigureFailureResponseInformation("No se encontró el departamento.");
+                responseInformation.ConfigureFailure("No se encontró el departamento.");
             }
         }
         catch (Exception ex)
         {
-            responseInformation.ConfigureFailureResponseInformation(ex.Message);
+            responseInformation.ConfigureFailure(ex.Message);
         }
         return responseInformation;
     }
@@ -110,16 +110,16 @@ public static class BLBusinessDepartment
             {
                 context.BusinessDepartments.Remove(businessDepartmentDelete);
                 context.SaveChanges();
-                responseInformation.ConfigureSuccessResponseInformation("Se elimino el departamento con éxito.");
+                responseInformation.ConfigureSuccess("Se elimino el departamento con éxito.");
             }
             else
             {
-                responseInformation.ConfigureFailureResponseInformation("No se encontró el departamento.");
+                responseInformation.ConfigureFailure("No se encontró el departamento.");
             }
         }
         catch (Exception ex)
         {
-            responseInformation.ConfigureFailureResponseInformation(ex.Message);
+            responseInformation.ConfigureFailure(ex.Message);
         }
         return responseInformation;
     }

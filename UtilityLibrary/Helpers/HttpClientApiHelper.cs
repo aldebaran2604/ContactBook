@@ -81,10 +81,52 @@ public static class HttpClientApiHelper
             string serializeData = JsonSerializer.Serialize(data);
 
             Task<HttpResponseMessage> task = LazyHttpClient.Value.PostAsync(requestUri, new StringContent(serializeData, System.Text.Encoding.UTF8, "application/json"));
-            
+
             if (task.Result is not null && task.Result.IsSuccessStatusCode)
             {
                 objectResult = GetObjectResult<T1>(task.Result.Content);
+            }
+        }
+        catch (Exception ex)
+        {
+            //TODO: Add a fix for error cases
+            _ = ex;
+        }
+        return objectResult;
+    }
+
+    public static T1? Update<T1, T2>(string requestUri, T2 data)
+    {
+        T1? objectResult = default;
+        try
+        {
+            string serializeData = JsonSerializer.Serialize(data);
+
+            Task<HttpResponseMessage> task = LazyHttpClient.Value.PutAsync(requestUri, new StringContent(serializeData, System.Text.Encoding.UTF8, "application/json"));
+
+            if (task.Result is not null && task.Result.IsSuccessStatusCode)
+            {
+                objectResult = GetObjectResult<T1>(task.Result.Content);
+            }
+        }
+        catch (Exception ex)
+        {
+            //TODO: Add a fix for error cases
+            _ = ex;
+        }
+        return objectResult;
+    }
+
+    public static T? Delete<T>(string requestUri)
+    {
+        T? objectResult = default;
+        try
+        {
+            Task<HttpResponseMessage> task = LazyHttpClient.Value.DeleteAsync(requestUri);
+
+            if (task.Result is not null && task.Result.IsSuccessStatusCode)
+            {
+                objectResult = GetObjectResult<T>(task.Result.Content);
             }
         }
         catch (Exception ex)

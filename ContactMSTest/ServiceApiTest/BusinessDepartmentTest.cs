@@ -35,6 +35,7 @@ public class BusinessDepartmentTest
         Assert.IsTrue(responseInformation.Success, responseInformation.Message);
     }
 
+    [TestMethod]
     public void EditBusinessDepartmentTest()
     {
         ResponseInformation<BusinessDepartment[]>? responseInformationList = HttpClientApiHelper.Get<ResponseInformation<BusinessDepartment[]>>("BusinessDepartment");

@@ -7,7 +7,7 @@ option csharp_namespace = "ContactServiceGRPC";
 
 package contactbook;
 
-service BusinessDepartment {
+service BusinessDepartmentService {
     rpc ListBusinessDepartment(ListBusinessDepartmentRequest) returns (ListBusinessDepartmentResponse);
 }
 
@@ -61,7 +61,9 @@ message ListBusinessDepartmentRequest {
 }
 
 message ListBusinessDepartmentResponse {
-    ResponseInformation ResponseInformation = 1;
-    repeated BusinessDepartmentModel BusinessDepartments = 2;
+    bool Success = 1;
+    string Message = 2;
+    bool Failure = 3;
+    repeated BusinessDepartmentModel ResultItem = 4;
 }
 

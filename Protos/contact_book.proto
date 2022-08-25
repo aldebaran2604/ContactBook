@@ -9,12 +9,8 @@ package contactbook;
 
 service BusinessDepartmentService {
     rpc ListBusinessDepartment(ListBusinessDepartmentRequest) returns (ListBusinessDepartmentResponse);
-}
-
-message ResponseInformation {
-    bool Success = 1;
-    string Message = 2;
-    bool Failure = 3;
+    rpc AddBusinessDepartment(AddBusinessDepartmentRequest) returns (AddBusinessDepartmentResponse);
+    rpc EditBusinessDepartment(EditBusinessDepartmentRequest) returns (EditaBusinessDepartmentResponse);
 }
 
 message BusinessDepartmentModel {
@@ -65,5 +61,25 @@ message ListBusinessDepartmentResponse {
     string Message = 2;
     bool Failure = 3;
     repeated BusinessDepartmentModel ResultItem = 4;
+}
+
+message AddBusinessDepartmentRequest {
+    BusinessDepartmentModel BusinessDepartmentModel = 1;
+}
+
+message AddBusinessDepartmentResponse {
+    bool Success = 1;
+    string Message = 2;
+    bool Failure = 3;
+}
+
+message EditBusinessDepartmentRequest {
+    BusinessDepartmentModel BusinessDepartmentModel = 1;
+}
+
+message EditaBusinessDepartmentResponse {
+    bool Success = 1;
+    string Message = 2;
+    bool Failure = 3;
 }
 

@@ -23,7 +23,7 @@ public class BusinessDepartmentService : ContactServiceGRPC.BusinessDepartmentSe
             Message = responseInformation.Message,
             Failure = responseInformation.Failure
         };
-        
+
         if (responseInformation.Success && responseInformation.ResultItem is not null)
         {
             foreach (var department in responseInformation.ResultItem)
@@ -37,7 +37,6 @@ public class BusinessDepartmentService : ContactServiceGRPC.BusinessDepartmentSe
 
             }
         }
-
 
         return Task.FromResult(response);
     }
@@ -77,5 +76,22 @@ public class BusinessDepartmentService : ContactServiceGRPC.BusinessDepartmentSe
             Failure = responseInformation.Failure
         };
         return Task.FromResult(editaBusinessDepartmentResponse);
+    }
+
+    public override Task<DeleteBusinessDepartmentResponse> DeleteBusinessDepartment(DeleteBusinessDepartmentRequest request, ServerCallContext context)
+    {
+        BusinessDepartment businessDepartment = new BusinessDepartment()
+        {
+            BusinessDepartmentId = request.BusinessDepartmentModel.BusinessDepartmentId
+        };
+        IResponseInformation responseInformation = BLBusinessDepartment.DeleteBusinessDepartment(businessDepartment);
+        
+        DeleteBusinessDepartmentResponse deleteBusinessDepartmentResponse = new DeleteBusinessDepartmentResponse()
+        {
+            Success = responseInformation.Success,
+            Message = responseInformation.Message,
+            Failure = responseInformation.Failure
+        };
+        return Task.FromResult(deleteBusinessDepartmentResponse);
     }
 }

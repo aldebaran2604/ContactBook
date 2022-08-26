@@ -11,6 +11,7 @@ service BusinessDepartmentService {
     rpc ListBusinessDepartment(ListBusinessDepartmentRequest) returns (ListBusinessDepartmentResponse);
     rpc AddBusinessDepartment(AddBusinessDepartmentRequest) returns (AddBusinessDepartmentResponse);
     rpc EditBusinessDepartment(EditBusinessDepartmentRequest) returns (EditaBusinessDepartmentResponse);
+    rpc DeleteBusinessDepartment(DeleteBusinessDepartmentRequest) returns(DeleteBusinessDepartmentResponse);
 }
 
 message BusinessDepartmentModel {
@@ -83,3 +84,12 @@ message EditaBusinessDepartmentResponse {
     bool Failure = 3;
 }
 
+message DeleteBusinessDepartmentRequest {
+    BusinessDepartmentModel BusinessDepartmentModel = 1;
+}
+
+message DeleteBusinessDepartmentResponse {
+    bool Success = 1;
+    string Message = 2;
+    bool Failure = 3;
+}

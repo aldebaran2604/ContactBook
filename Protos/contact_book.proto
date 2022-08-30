@@ -7,12 +7,7 @@ option csharp_namespace = "ContactServiceGRPC";
 
 package contactbook;
 
-service BusinessDepartmentService {
-    rpc ListBusinessDepartment(ListBusinessDepartmentRequest) returns (ListBusinessDepartmentResponse);
-    rpc AddBusinessDepartment(AddBusinessDepartmentRequest) returns (AddBusinessDepartmentResponse);
-    rpc EditBusinessDepartment(EditBusinessDepartmentRequest) returns (EditaBusinessDepartmentResponse);
-    rpc DeleteBusinessDepartment(DeleteBusinessDepartmentRequest) returns(DeleteBusinessDepartmentResponse);
-}
+//Modelos
 
 message BusinessDepartmentModel {
     int32 BusinessDepartmentId = 1;
@@ -53,6 +48,15 @@ message ContactModel {
     string Notes = 22;
 }
 
+// BusinessDepartment service with your requests and your responses.
+
+service BusinessDepartmentService {
+    rpc ListBusinessDepartment(ListBusinessDepartmentRequest) returns (ListBusinessDepartmentResponse);
+    rpc AddBusinessDepartment(AddBusinessDepartmentRequest) returns (AddBusinessDepartmentResponse);
+    rpc EditBusinessDepartment(EditBusinessDepartmentRequest) returns (EditaBusinessDepartmentResponse);
+    rpc DeleteBusinessDepartment(DeleteBusinessDepartmentRequest) returns(DeleteBusinessDepartmentResponse);
+}
+
 message ListBusinessDepartmentRequest {
 
 }
@@ -89,6 +93,56 @@ message DeleteBusinessDepartmentRequest {
 }
 
 message DeleteBusinessDepartmentResponse {
+    bool Success = 1;
+    string Message = 2;
+    bool Failure = 3;
+}
+
+// BusinessPosition service with your requests and your responses.
+
+service BusinessPositionService {
+    rpc ListBusinessPosition(ListBusinessPositionRequest) returns (ListBusinessPositionResponse);
+    rpc AddBusinessPosition(AddBusinessPositionRequest) returns (AddBusinessPositionResponse);
+    rpc EditBusinessPosition(EditBusinessPositionRequest) returns (EditBusinessPositionResponse);
+    rpc DeleteBusinessPosition(DeleteBusinessPositionRequest) returns (DeleteBusinessPositionResponse);
+}
+
+message ListBusinessPositionRequest {
+
+}
+
+message ListBusinessPositionResponse {
+    bool Success = 1;
+    string Message = 2;
+    bool Failure = 3;
+    repeated BusinessPositionModel ResultItem = 4;
+}
+
+message AddBusinessPositionRequest {
+    BusinessPositionModel BusinessPositionModel = 1;
+}
+
+message AddBusinessPositionResponse {
+    bool Success = 1;
+    string Message = 2;
+    bool Failure = 3;
+}
+
+message EditBusinessPositionRequest {
+    BusinessPositionModel BusinessPositionModel = 1;
+}
+
+message EditBusinessPositionResponse {
+    bool Success = 1;
+    string Message = 2;
+    bool Failure = 3;
+}
+
+message DeleteBusinessPositionRequest  {
+    BusinessPositionModel BusinessPositionModel = 1;
+}
+
+message DeleteBusinessPositionResponse {
     bool Success = 1;
     string Message = 2;
     bool Failure = 3;

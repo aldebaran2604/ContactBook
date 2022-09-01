@@ -147,3 +147,20 @@ message DeleteBusinessPositionResponse {
     string Message = 2;
     bool Failure = 3;
 }
+
+// Contact service with your requests and your responses.
+
+service ContactService {
+    rpc ListContact(ListContactRequest) returns (ListContactResponse);
+}
+
+message ListContactRequest {
+
+}
+
+message ListContactResponse {
+    bool Success = 1;
+    string Message = 2;
+    bool Failure = 3;
+    repeated ContactModel ResultItem = 4;
+}

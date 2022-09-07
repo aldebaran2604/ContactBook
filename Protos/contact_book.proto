@@ -11,41 +11,41 @@ package contactbook;
 
 message BusinessDepartmentModel {
     int32 BusinessDepartmentId = 1;
-    string Name = 2;
-    string Description = 3;
+    google.protobuf.StringValue Name = 2;
+    google.protobuf.StringValue Description = 3;
     repeated ContactModel Contacts = 4;
 }
 
 message BusinessPositionModel {
     int32 BusinessPositionId = 1;
-    string Name = 2;
-    string Description = 3;
+    google.protobuf.StringValue Name = 2;
+    google.protobuf.StringValue Description = 3;
     repeated ContactModel Contacts = 4;
 }
 
 message ContactModel {
     int32 ContactId = 1;
-    string Names = 2;
-    string LastNames = 3;
-    string Pseudonymous = 4;
-    string CompanyName = 5;
+    google.protobuf.StringValue Names = 2;
+    google.protobuf.StringValue LastNames = 3;
+    google.protobuf.StringValue Pseudonymous = 4;
+    google.protobuf.StringValue CompanyName = 5;
     google.protobuf.Int32Value BusinessPositionID = 6;
     optional BusinessPositionModel BusinessPosition = 7;
     google.protobuf.Int32Value BusinessDepartmentId = 8;
     optional BusinessDepartmentModel BusinessDepartment = 9;
-    string Email = 10;
-    string PhoneNumber = 11;
-    string Country = 12;
-    string StreetDirection1 = 13;
-    string StreetDirection2 = 14;
-    string PostalCode = 15;
-    string City = 16;
-    string State = 17;
+    google.protobuf.StringValue Email = 10;
+    google.protobuf.StringValue PhoneNumber = 11;
+    google.protobuf.StringValue Country = 12;
+    google.protobuf.StringValue StreetDirection1 = 13;
+    google.protobuf.StringValue StreetDirection2 = 14;
+    google.protobuf.StringValue PostalCode = 15;
+    google.protobuf.StringValue City = 16;
+    google.protobuf.StringValue State = 17;
     optional google.protobuf.Timestamp Birthday = 18;
-    string WebSite = 19;
-    string Relationship = 20;
-    string TypeRelationship = 21;
-    string Notes = 22;
+    google.protobuf.StringValue WebSite = 19;
+    google.protobuf.StringValue Relationship = 20;
+    google.protobuf.StringValue TypeRelationship = 21;
+    google.protobuf.StringValue Notes = 22;
 }
 
 // BusinessDepartment service with your requests and your responses.
@@ -63,7 +63,7 @@ message ListBusinessDepartmentRequest {
 
 message ListBusinessDepartmentResponse {
     bool Success = 1;
-    string Message = 2;
+    google.protobuf.StringValue Message = 2;
     bool Failure = 3;
     repeated BusinessDepartmentModel ResultItem = 4;
 }
@@ -74,7 +74,7 @@ message AddBusinessDepartmentRequest {
 
 message AddBusinessDepartmentResponse {
     bool Success = 1;
-    string Message = 2;
+    google.protobuf.StringValue Message = 2;
     bool Failure = 3;
 }
 
@@ -84,7 +84,7 @@ message EditBusinessDepartmentRequest {
 
 message EditaBusinessDepartmentResponse {
     bool Success = 1;
-    string Message = 2;
+    google.protobuf.StringValue Message = 2;
     bool Failure = 3;
 }
 
@@ -94,7 +94,7 @@ message DeleteBusinessDepartmentRequest {
 
 message DeleteBusinessDepartmentResponse {
     bool Success = 1;
-    string Message = 2;
+    google.protobuf.StringValue Message = 2;
     bool Failure = 3;
 }
 
@@ -113,7 +113,7 @@ message ListBusinessPositionRequest {
 
 message ListBusinessPositionResponse {
     bool Success = 1;
-    string Message = 2;
+    google.protobuf.StringValue Message = 2;
     bool Failure = 3;
     repeated BusinessPositionModel ResultItem = 4;
 }
@@ -124,7 +124,7 @@ message AddBusinessPositionRequest {
 
 message AddBusinessPositionResponse {
     bool Success = 1;
-    string Message = 2;
+    google.protobuf.StringValue Message = 2;
     bool Failure = 3;
 }
 
@@ -134,7 +134,7 @@ message EditBusinessPositionRequest {
 
 message EditBusinessPositionResponse {
     bool Success = 1;
-    string Message = 2;
+    google.protobuf.StringValue Message = 2;
     bool Failure = 3;
 }
 
@@ -144,7 +144,7 @@ message DeleteBusinessPositionRequest  {
 
 message DeleteBusinessPositionResponse {
     bool Success = 1;
-    string Message = 2;
+    google.protobuf.StringValue Message = 2;
     bool Failure = 3;
 }
 
@@ -152,6 +152,9 @@ message DeleteBusinessPositionResponse {
 
 service ContactService {
     rpc ListContact(ListContactRequest) returns (ListContactResponse);
+    rpc AddContact(AddContactRequest) returns (AddContactResponse);
+    rpc EditContact(EditContactRequest) returns (EditContactResponse);
+    rpc DeleteContact(DeleteContactRequest) returns (DeleteContactResponse);
 }
 
 message ListContactRequest {
@@ -160,7 +163,37 @@ message ListContactRequest {
 
 message ListContactResponse {
     bool Success = 1;
-    string Message = 2;
+    google.protobuf.StringValue Message = 2;
     bool Failure = 3;
     repeated ContactModel ResultItem = 4;
+}
+
+message AddContactRequest {
+    ContactModel ContactModel = 1;
+}
+
+message AddContactResponse {
+    bool Success = 1;
+    google.protobuf.StringValue Message = 2;
+    bool Failure = 3;
+}
+
+message EditContactRequest {
+    ContactModel ContactModel = 1;
+}
+
+message EditContactResponse {
+    bool Success = 1;
+    google.protobuf.StringValue Message = 2;
+    bool Failure = 3;
+}
+
+message DeleteContactRequest {
+    ContactModel ContactModel = 1;
+}
+
+message DeleteContactResponse {
+    bool Success = 1;
+    google.protobuf.StringValue Message = 2;
+    bool Failure = 3;
 }

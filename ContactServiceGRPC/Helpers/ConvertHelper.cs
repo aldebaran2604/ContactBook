@@ -58,4 +58,73 @@ internal static class ConvertHelper
         };
         return contactModel;
     }
+
+    internal static Contact ConvertContactModelToContact(ContactModel contactModel)
+    {
+        BusinessDepartment? businessDepartment = null;
+        if (contactModel.BusinessDepartment is not null)
+        {
+            businessDepartment = ConvertBusinessDepartmentModelToBusinessDepartment(contactModel.BusinessDepartment);
+        }
+        BusinessPosition? businessPosition = null;
+        if (contactModel.BusinessPosition is not null)
+        {
+            businessPosition = ConvertBusinessPositionModelToBusinessPosition(contactModel.BusinessPosition);
+        }
+        DateTime? birthday = null;
+        if (contactModel.Birthday is not null)
+        {
+            birthday = contactModel.Birthday.ToDateTime();
+        }
+        Contact contact = new Contact()
+        {
+            ContactId = contactModel.ContactId,
+            Names = contactModel.Names,
+            LastNames = contactModel.LastNames,
+            Pseudonymous = contactModel.Pseudonymous,
+            CompanyName = contactModel.CompanyName,
+            BusinessDepartmentId = contactModel.BusinessDepartmentId,
+            BusinessDepartment = businessDepartment,
+            BusinessPositionID = contactModel.BusinessPositionID,
+            BusinessPosition = businessPosition,
+            Email = contactModel.Email,
+            PhoneNumber = contactModel.PhoneNumber,
+            Country = contactModel.Country,
+            StreetDirection1 = contactModel.StreetDirection1,
+            StreetDirection2 = contactModel.StreetDirection2,
+            PostalCode = contactModel.PostalCode,
+            City = contactModel.City,
+            State = contactModel.State,
+            Birthday = birthday,
+            WebSite = contactModel.WebSite,
+            Relationship = contactModel.Relationship,
+            TypeRelationship = contactModel.TypeRelationship,
+            Notes = contactModel.Notes
+        };
+        return contact;
+    }
+
+    internal static BusinessDepartment ConvertBusinessDepartmentModelToBusinessDepartment(BusinessDepartmentModel businessDepartmentModel)
+    {
+        BusinessDepartment businessDepartment = new BusinessDepartment()
+        {
+            BusinessDepartmentId = businessDepartmentModel.BusinessDepartmentId,
+            Name = businessDepartmentModel.Name,
+            Description = businessDepartmentModel.Description
+        };
+
+        return businessDepartment;
+    }
+
+    internal static BusinessPosition ConvertBusinessPositionModelToBusinessPosition(BusinessPositionModel businessPositionModel)
+    {
+        BusinessPosition businessPosition = new BusinessPosition()
+        {
+            BusinessPositionId = businessPositionModel.BusinessPositionId,
+            Name = businessPositionModel.Name,
+            Description = businessPositionModel.Description
+        };
+
+        return businessPosition;
+    }
 }

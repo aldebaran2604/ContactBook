@@ -40,7 +40,7 @@ public class ContactTest
         contactModel.StreetDirection2 = person.Address2;
         contactModel.PostalCode = person.PostalCode;
         contactModel.City = person.City;
-        contactModel.Birthday = Google.Protobuf.WellKnownTypes.Timestamp.FromDateTime(person.BornOn.DateTime);
+        contactModel.Birthday = Google.Protobuf.WellKnownTypes.Timestamp.FromDateTime(person.BornOn.UtcDateTime);
     }
 
     [TestMethod]

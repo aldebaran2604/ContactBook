@@ -29,7 +29,7 @@ internal static class ConvertHelper
         Google.Protobuf.WellKnownTypes.Timestamp? birthday = null;
         if (contact.Birthday is not null)
         {
-            birthday = Google.Protobuf.WellKnownTypes.Timestamp.FromDateTime(contact.Birthday.Value);
+            birthday = Google.Protobuf.WellKnownTypes.Timestamp.FromDateTime(DateTime.FromFileTimeUtc(contact.Birthday.Value.ToFileTimeUtc()));
         }
         ContactModel contactModel = new ContactModel()
         {
